@@ -14,27 +14,33 @@
   <td class="product-item__inner">
     <div class="product-item__title--wrapper">
       <div class="variant-item__media">
-        <div class="variant-item__image-container gradient global-media-settings">
-          {%- assign img_height = 36 | divided_by: image.aspect_ratio | ceil -%}
-          {{
-            image
-            | image_url: width: 72
-            | image_tag:
-              loading: 'lazy',
-              fetchpriority: 'low',
-              decoding: 'async',
-              class: 'variant-item__image',
-              width: 36,
-              height: img_height,
-              widths: '72',
-              alt: image.alt
-            | escape
-          }}
+        {%- if image -%}
+          <div class="variant-item__image-container gradient global-media-settings">
+            {%- assign img_height = 28 | divided_by: image.aspect_ratio | ceil -%}
+            {{
+              image
+              | image_url: width: 56
+              | image_tag:
+                loading: 'lazy',
+                fetchpriority: 'low',
+                decoding: 'async',
+                class: 'variant-item__image',
+                width: 28,
+                height: img_height,
+                widths: '56',
+                alt: image.alt
+              | escape
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+      <a href="{{ item.url }}" target="_blank" class="variant-item__name h4 break">{{ item.title | escape }}</a>
+      {% comment %}
+        As per Eugene's PR https://github.com/Shopify/dawn/pull/3126
+        <div class="small-hide">
+          <a href="{{ item.url }}" class="variant-item__name h4 break">{{ item.title | escape }}</a>
         </div>
-      </div>
-      <div class="small-hide">
-        <a href="{{ item.url }}" class="variant-item__name h4 break">{{ item.title | escape }}</a>
-      </div>
+      {% endcomment %}
     </div>
   </td>
 </tr>
